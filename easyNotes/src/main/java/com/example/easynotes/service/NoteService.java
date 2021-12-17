@@ -159,6 +159,25 @@ public class NoteService implements INoteService {
                 )
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public NoteResponseWithTypeDTO getTypeNote(Long noteId){
+        Note note = noteRepository.findById(noteId)
+                .orElseThrow(() -> new ResourceNotFoundException("Note", "id", noteId));
+        List<HashMap<String, Object>> thanksNote = noteRepository.findCantThanksForNote(noteId);
+        Long cantThanks = (Long) thanksNote.get(0).get("cant_thanks");
+        NoteResponseWithTypeDTO noteWithType = modelMapper.map(note, NoteResponseWithTypeDTO.class);
+        //noteWithType.setId();
+        if(cantThanks > 10) {
+            noteWithType.setType(TypeNote.Destacada);
+        } else if(cantThanks < 5) {
+            noteWithType.setType(TypeNote.Normal);
+        } else {
+            noteWithType.setType(TypeNote.DeInteres);
+        }
+
+        return noteWithType;
+    }
 }
 
 

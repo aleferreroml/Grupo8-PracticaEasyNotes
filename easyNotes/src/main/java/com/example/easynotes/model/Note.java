@@ -28,6 +28,7 @@ public class Note {
 
     private String content;
 
+    //Relaciones
     @ManyToMany(mappedBy = "revisedNotes")
     private Set<User> revisers = new HashSet<>();
 

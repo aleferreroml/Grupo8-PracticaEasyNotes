@@ -24,6 +24,12 @@ public interface NoteRepository extends JpaRepository<Note, Long> {
             "where YEAR(thank.createdAt) = :year " +
             "group by note.id order by cant_thanks desc")
     List<HashMap<String, Object>> findTopThreeNotesMostThankedByDate(int year);
+
+    @Query("SELECT new map(note.id as id, COUNT(note.id) as cant_thanks ) " +
+            "from Note note inner join note.thanks as thank " +
+            "group by note.id " +
+            "having note.id = :id")
+    List<HashMap<String, Object>> findCantThanksForNote(@Param("id") Long noteId);
 }
 /*
 note    thank
