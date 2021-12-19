@@ -1,25 +1,23 @@
-package com.example.easynotes.dto;
+package com.example.easynotes.dto.users;
 
-import com.example.easynotes.model.Note;
-import com.example.easynotes.model.User;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import java.util.Date;
+
+import javax.validation.constraints.NotEmpty;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class ThankDTO {
+public class UserDTO {
+        @NotEmpty
+        private String firstName;
 
-    Long noteId;
-
-    UserResponseDTO user;
-
-    private Date createdAt;
+        @NotEmpty
+        private String lastName;
 
 }

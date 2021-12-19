@@ -1,9 +1,10 @@
 package com.example.easynotes.controller;
 
-import com.example.easynotes.dto.NoteResponseWithCantLikesDTO;
-import com.example.easynotes.dto.ThankDTO;
-import com.example.easynotes.dto.NoteRequestDTO;
-import com.example.easynotes.dto.NoteResponseWithAuthorDTO;
+import com.example.easynotes.dto.notes.NoteRequestDTO;
+import com.example.easynotes.dto.notes.NoteResponseTypeNoteDTO;
+import com.example.easynotes.dto.notes.NoteResponseWithAuthorDTO;
+import com.example.easynotes.dto.notes.NoteResponseWithCantLikesDTO;
+import com.example.easynotes.dto.thanks.ThankDTO;
 import com.example.easynotes.model.Note;
 import com.example.easynotes.service.INoteService;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +15,7 @@ import java.util.List;
 import java.util.Set;
 
 @RestController
-@RequestMapping("api/note")
+@RequestMapping("api/notes")
 public class NoteController {
 
     INoteService noteService;
@@ -63,4 +64,10 @@ public class NoteController {
     public List<NoteResponseWithCantLikesDTO> getNotesWithLikesByYear(@PathVariable(value = "year") int year){
         return noteService.getThreeMoreThankedNotes(year);
     }
+
+    @GetMapping("{id}/typeNote")
+    public NoteResponseTypeNoteDTO getTypeNote(@PathVariable(value = "id") Long id) {
+        return noteService.getNoteWithTypeNote(id);
+    }
+
 }

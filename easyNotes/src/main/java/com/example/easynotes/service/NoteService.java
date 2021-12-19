@@ -1,6 +1,11 @@
 package com.example.easynotes.service;
 
-import com.example.easynotes.dto.*;
+import com.example.easynotes.dto.notes.NoteRequestDTO;
+import com.example.easynotes.dto.notes.NoteResponseTypeNoteDTO;
+import com.example.easynotes.dto.notes.NoteResponseWithAuthorDTO;
+import com.example.easynotes.dto.notes.NoteResponseWithCantLikesDTO;
+import com.example.easynotes.dto.thanks.ThankDTO;
+import com.example.easynotes.dto.users.UserResponseWithCantNotesDTO;
 import com.example.easynotes.exception.ResourceNotFoundException;
 import com.example.easynotes.model.Note;
 import com.example.easynotes.model.Thank;
@@ -145,7 +150,7 @@ public class NoteService implements INoteService {
 
         return listMapper.mapSet( note.getThanks(), ThankDTO.class );
     }
-
+    @Override
     public List<NoteResponseWithCantLikesDTO> getThreeMoreThankedNotes (int year){
 
         List<HashMap<String, Object>> notesMoreThanked = noteRepository.findTopThreeNotesMostThankedByDate(year);
@@ -158,6 +163,29 @@ public class NoteService implements INoteService {
                 }
                 )
                 .collect(Collectors.toList());
+    }
+
+
+    public String getTypeNote(Note note) {
+        if(note.getThanks().size()>10){
+            return "Destacada";
+        }
+        else if(note.getThanks().size()>=5){
+            return "De Interes";
+        }
+        else {
+            return "Normal";
+        }
+
+    }
+    @Override
+    public NoteResponseTypeNoteDTO getNoteWithTypeNote(Long id) {
+        Note note = noteRepository.findById(id)
+                .orElseThrow( () -> new ResourceNotFoundException("Note", "id", id) );
+        NoteResponseTypeNoteDTO noteResponse = modelMapper.map(note,NoteResponseTypeNoteDTO.class);
+        noteResponse.setTypeNote(getTypeNote(note));
+        return noteResponse;
+
     }
 }
 

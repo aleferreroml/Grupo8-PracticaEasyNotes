@@ -1,7 +1,6 @@
-package com.example.easynotes.dto;
+package com.example.easynotes.dto.notes;
 
-import com.fasterxml.jackson.annotation.JsonAlias;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.AllArgsConstructor;
@@ -9,18 +8,18 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-
 @Data
 @EqualsAndHashCode(callSuper=true)
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class NoteRequestDTO extends NoteDTO {
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
+public class NoteResponseWithCantLikesDTO extends NoteResponseDTO{
 
-    @NotNull
-    private Long authorId;
+    int cantThanks;
 
+    public NoteResponseWithCantLikesDTO(Long id, int cantThanks) {
+        super(id);
+        this.cantThanks = cantThanks;
+    }
 }

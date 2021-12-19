@@ -1,4 +1,4 @@
-package com.example.easynotes.dto;
+package com.example.easynotes.dto.users;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

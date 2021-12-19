@@ -1,4 +1,4 @@
-package com.example.easynotes.dto;
+package com.example.easynotes.dto.notes;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
@@ -9,17 +9,15 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
+// Used when extends from other DTO
+// link: https://stackoverflow.com/questions/38572566/warning-equals-hashcode-on-data-annotation-lombok-with-inheritance
 @EqualsAndHashCode(callSuper=true)
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
-public class NoteResponseWithCantLikesDTO extends NoteResponseDTO{
+public class NoteResponseTypeNoteDTO extends NoteDTO {
 
-    int cantThanks;
-
-    public NoteResponseWithCantLikesDTO(Long id, int cantThanks) {
-        super(id);
-        this.cantThanks = cantThanks;
-    }
+    private Long id;
+    private String TypeNote;
 }

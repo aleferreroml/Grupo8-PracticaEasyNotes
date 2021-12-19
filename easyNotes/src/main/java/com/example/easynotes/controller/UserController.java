@@ -1,6 +1,6 @@
 package com.example.easynotes.controller;
 
-import com.example.easynotes.dto.*;
+import com.example.easynotes.dto.users.*;
 import com.example.easynotes.service.IUserService;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/api/users")
 public class UserController {
 
     IUserService userService;
@@ -89,9 +89,10 @@ public class UserController {
         return ResponseEntity.ok().build();
     }
 
-
-    //Metodos de Jean para HQL
-
+    @GetMapping("/{id}/category")
+    public UserResponseWithCategoryDTO getUserCategory(@PathVariable(value = "id") Long userId){
+        return userService.getUserCategory(userId);
+    }
 //    @GetMapping("like/{lastName}/{firstName}")
 //    public List<UserResponseDTO> getUsersLastNameLikeAndFirstNameLike(@PathVariable(value = "lastName") String lastName,
 //                                                                      @PathVariable(value = "firstName") String firstName) {

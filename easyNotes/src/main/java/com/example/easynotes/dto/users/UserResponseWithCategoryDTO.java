@@ -1,6 +1,6 @@
-package com.example.easynotes.dto;
+package com.example.easynotes.dto.users;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.example.easynotes.dto.notes.NoteResponseDTO;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.AllArgsConstructor;
@@ -15,7 +15,9 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class UserResponseWithCantNotesDTO extends UserRequestDTO {
+public class UserResponseWithCategoryDTO extends UserRequestDTO {
 
-        private Integer cantNotes;
+        private Long id;
+
+        private String category;
 }

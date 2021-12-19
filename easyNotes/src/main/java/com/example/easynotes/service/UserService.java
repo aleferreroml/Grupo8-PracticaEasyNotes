@@ -1,6 +1,7 @@
 package com.example.easynotes.service;
 
-import com.example.easynotes.dto.*;
+import com.example.easynotes.dto.notes.NoteRequestDTO;
+import com.example.easynotes.dto.users.*;
 import com.example.easynotes.exception.ResourceNotFoundException;
 import com.example.easynotes.model.Note;
 import com.example.easynotes.model.Thank;
@@ -12,14 +13,12 @@ import com.example.easynotes.utils.ListMapper;
 import org.modelmapper.AbstractConverter;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.*;
-import java.util.stream.Collectors;
 
 
 @Service
@@ -167,6 +166,23 @@ public class UserService implements IUserService {
 
         thankRepository.save(thank);
     }
+
+    @Override
+    public UserResponseWithCategoryDTO getUserCategory(Long id){
+        return null;
+
+    }
+
+
+
+
+
+
+
+
+
+
+
 
 //    @Override
 //    public List<UserResponseDTO> getUsersLastNameLikeAndFirstNameLike(String lastName, String firstName) {

@@ -1,4 +1,4 @@
-package com.example.easynotes.dto;
+package com.example.easynotes.dto.notes;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;

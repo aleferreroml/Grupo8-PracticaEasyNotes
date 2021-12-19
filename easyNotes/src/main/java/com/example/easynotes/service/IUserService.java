@@ -1,11 +1,9 @@
 package com.example.easynotes.service;
 
-import com.example.easynotes.dto.*;
-import com.example.easynotes.model.User;
+import com.example.easynotes.dto.users.*;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 public interface IUserService {
     List<UserResponseDTO> getAllUsers();
@@ -35,12 +33,21 @@ public interface IUserService {
 
     void createThank(Long userId, Long noteId);
 
+    UserResponseWithCategoryDTO getUserCategory(Long id);
+
+
+
+
+
+
 
     // NOTA: Metodos de Jean para HQL
 
     UserResponseDTO getUserById(Integer id);
 
     UserResponseDTO getUserByLastName(String lastName);
+
+
 
     //  List<UserResponseDTO> getUsersLastNameLikeAndFirstNameLike(String lastName, String firstName);
 
