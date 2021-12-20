@@ -1,7 +1,9 @@
 package com.example.easynotes.service;
 
+import com.example.easynotes.dto.CategoriaUsuario;
 import com.example.easynotes.dto.UserRequestDTO;
 import com.example.easynotes.dto.UserResponseDTO;
+import com.example.easynotes.dto.UserResponseWithCategoryDTO;
 import com.example.easynotes.exception.ResourceNotFoundException;
 import com.example.easynotes.model.Note;
 import com.example.easynotes.model.User;
@@ -26,7 +28,8 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class UserServiceTest {
@@ -171,7 +174,17 @@ class UserServiceTest {
                 ResourceNotFoundException.class,
                 () -> userService.getUserById(1L) );
     }
+    @Test
+    void getUserCategoryPublicador() {
+        when(userRepository.findById(0L)).thenReturn(Optional.of(new User()));
+        List<Note> notes = List.of(new Note());
 
-
+        UserResponseWithCategoryDTO currentUser = userService.getCategory(0L);
+        System.out.println(currentUser);
+        Assertions.assertAll(
+                () -> Assertions.assertEquals(CategoriaUsuario.Publicador,currentUser.getCategory())
+        );
+    }
+    
 
 }
