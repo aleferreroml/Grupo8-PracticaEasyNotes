@@ -156,7 +156,7 @@ class NoteServiceTest {
 
     @Test
     void getTypeNoteThenReturnsNormal() {
-        Long noteId = 0L;
+        Long noteId = 3L;
         NoteResponseWithTypeDTO expected = new NoteResponseWithTypeDTO();
         expected.setType(TypeNote.Normal);
         expected.setId(3L);
@@ -181,7 +181,7 @@ class NoteServiceTest {
 
     @Test
     void getTypeNoteThenReturnsDeInteres() {
-        Long noteId = 0L;
+        Long noteId = 5L;
         NoteResponseWithTypeDTO expected = new NoteResponseWithTypeDTO();
         expected.setType(TypeNote.DeInteres);
         expected.setId(5L);
