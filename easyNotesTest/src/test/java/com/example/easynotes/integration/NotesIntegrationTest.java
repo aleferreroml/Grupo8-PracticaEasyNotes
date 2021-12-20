@@ -85,8 +85,6 @@ public class NotesIntegrationTest {
     public void testCorrectMostThanksCountByYear() throws Exception {
         // Arrange
         int year = 2020;
-        //fecha para payload
-        LocalDate b = LocalDate.parse("14-12-2021", DateTimeFormatter.ofPattern("dd-MM-yyyy"));
 
         var noteFirst   = new NoteResponseWithCantLikesDTO(1L, 5);
         var noteSecond  = new NoteResponseWithCantLikesDTO(29L, 4);

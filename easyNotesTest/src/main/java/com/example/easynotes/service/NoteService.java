@@ -7,7 +7,6 @@ import com.example.easynotes.model.Thank;
 import com.example.easynotes.model.User;
 import com.example.easynotes.repository.NoteRepository;
 import com.example.easynotes.repository.UserRepository;
-import com.example.easynotes.utils.ListMapper;
 import org.modelmapper.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,12 +21,11 @@ public class NoteService implements INoteService {
     NoteRepository noteRepository;
     UserRepository userRepository;
     ModelMapper modelMapper;
-    ListMapper listMapper;
 
     @Autowired
-    public NoteService(NoteRepository noteRepository,
-                       UserRepository userRepository,
-                       ModelMapper modelMapper) {
+    NoteService(NoteRepository noteRepository,
+                UserRepository userRepository,
+                ModelMapper modelMapper) {
         this.noteRepository = noteRepository;
         this.userRepository = userRepository;
 
@@ -70,7 +68,10 @@ public class NoteService implements INoteService {
     @Override
     public List<NoteResponseWithAuthorDTO> getAllNotes() {
         List<Note> notes = noteRepository.findAll();
-        return listMapper.mapList(notes, NoteResponseWithAuthorDTO.class);
+        return notes
+                .stream()
+                .map( note -> modelMapper.map( note, NoteResponseWithAuthorDTO.class ))
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -141,7 +142,9 @@ public class NoteService implements INoteService {
         Note note = noteRepository.findById(id)
                 .orElseThrow( () -> new ResourceNotFoundException("Note", "id", id) );
 
-        return listMapper.mapSet( note.getThanks(), ThankDTO.class );
+        return note.getThanks().stream()
+                        .map( thank -> modelMapper.map( thank, ThankDTO.class ))
+                        .collect(Collectors.toSet());
     }
 
     public List<NoteResponseWithCantLikesDTO> getThreeMoreThankedNotes (int year){

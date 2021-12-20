@@ -1,30 +1,35 @@
-package com.example.easynotes.unit.service;
+package com.example.easynotes.service;
 
 import com.example.easynotes.dto.UserRequestDTO;
+import com.example.easynotes.dto.UserResponseDTO;
 import com.example.easynotes.exception.ResourceNotFoundException;
 import com.example.easynotes.model.Note;
 import com.example.easynotes.model.User;
 import com.example.easynotes.repository.NoteRepository;
 import com.example.easynotes.repository.ThankRepository;
 import com.example.easynotes.repository.UserRepository;
-import com.example.easynotes.service.UserService;
-import com.example.easynotes.utils.ListMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
+import javax.swing.text.html.Option;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class UserServiceTest {
+class UserServiceTest {
 
     UserRepository userRepository = Mockito.mock(UserRepository.class);
 
@@ -33,8 +38,6 @@ public class UserServiceTest {
     ThankRepository thankRepository = Mockito.mock(ThankRepository.class);
 
     ModelMapper modelMapper = new ModelMapper();
-
-    ListMapper listMapper = new ListMapper(modelMapper);
 
     UserService userService = new UserService(userRepository, noteRepository, thankRepository, modelMapper);
 
@@ -168,4 +171,7 @@ public class UserServiceTest {
                 ResourceNotFoundException.class,
                 () -> userService.getUserById(1L) );
     }
+
+
+
 }

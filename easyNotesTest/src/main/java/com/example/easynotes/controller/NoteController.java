@@ -16,7 +16,7 @@ public class NoteController {
 
     INoteService noteService;
 
-    public NoteController(INoteService noteService) {
+    NoteController(INoteService noteService) {
         this.noteService = noteService;
     }
 
