@@ -9,6 +9,7 @@ import com.example.easynotes.repository.NoteRepository;
 import com.example.easynotes.repository.ThankRepository;
 import com.example.easynotes.repository.UserRepository;
 import com.example.easynotes.utils.ListMapper;
+import org.aspectj.weaver.ast.Not;
 import org.modelmapper.AbstractConverter;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -194,5 +196,51 @@ public class UserService implements IUserService {
 
         User user = query.getResultList().get(1);
         return modelMapper.map(user, UserResponseDTO.class);
+    }
+
+    @Override
+    public UserResponseWithCategoryDTO getCategory(Long userId){
+        User user = this.userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
+
+        List<Note> notas = this.userRepository.findUserByIdAndNotes(userId);
+        notas.stream().filter(x -> x.getCreatedAt().isEqual(LocalDate.now().minusDays(1)));
+        UserResponseWithCategoryDTO userDTO = this.modelMapper
+                .map(user, UserResponseWithCategoryDTO.class);
+
+        Boolean ayer = false, anteayer = false, anteanteayer = false;
+        for (Note nota : notas) {
+            if(nota.getCreatedAt().isEqual(LocalDate.now().minusDays(1))){
+                ayer = true;
+            } else if(nota.getCreatedAt().isEqual(LocalDate.now().minusDays(2))){
+                anteayer = true;
+            } else if(nota.getCreatedAt().isEqual(LocalDate.now().minusDays(3))){
+                anteanteayer = true;
+            }
+        }
+
+        if(ayer && anteayer && anteanteayer){
+            userDTO.setCategory(CategoriaUsuario.PublicadorDiario);
+            return userDTO;
+        }
+
+        Boolean ultimaSem = false, anteUltimaSem = false, anteanteUltimaSem = false;
+        for (Note nota : notas) {
+            if(nota.getCreatedAt().isAfter(LocalDate.now().minusWeeks(1))){
+                ultimaSem = true;
+            } else if(nota.getCreatedAt().isAfter(LocalDate.now().minusWeeks(2))){
+                anteUltimaSem = true;
+            } else if(nota.getCreatedAt().isAfter(LocalDate.now().minusWeeks(3))){
+                anteanteUltimaSem = true;
+            }
+        }
+
+        if(ultimaSem && anteUltimaSem && anteanteUltimaSem){
+            userDTO.setCategory(CategoriaUsuario.PublicadorSemanal);
+            return userDTO;
+        } else {
+            userDTO.setCategory(CategoriaUsuario.Publicador);
+            return userDTO;
+        }
     }
 }

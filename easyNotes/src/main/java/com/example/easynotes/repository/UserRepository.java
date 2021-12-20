@@ -44,7 +44,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
             "where note.createdAt >= :date" )
     List<User> findUserByNoteCreatedAtLessOrEqualDate(@Param("date") Date date);
 
-
+    @Query("SELECT notes FROM User user join user.authorNotes as notes " +
+            "where user.id = :id")
+    List<Note> findUserByIdAndNotes(@Param("id") Long userId);
 
 
 

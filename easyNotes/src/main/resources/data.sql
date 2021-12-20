@@ -19,8 +19,13 @@ VALUES
     (14,'Si el tiempo no se me pasa más cuando se corta la luz3','2020-12-06','Que hacemos3?','2021-12-06',1),
     (29,'Si el tiempo no se me pasa más cuando se corta la luz4','2020-12-06','Que hacemos4?','2021-12-06',1),
     (30,'Si el tiempo no se me pasa más cuando se corta la luz4','2020-12-06','Que hacemos4?','2021-12-06',1),
-    (37,'Si el tiempo no se me pasa más cuando se corta la luz5','2021-12-06','Que hacemos5?','2021-12-06',1);
-
+    (37,'Si el tiempo no se me pasa más cuando se corta la luz5','2021-12-06','Que hacemos5?','2021-12-06',1),
+    (40,'Si el tiempo 2','2021-12-19','Que hacemos4?','2021-12-19',2),
+    (41,'Si el tiempo 3','2021-12-18','Que hacemos4?','2021-12-18',2),
+    (42,'Si el tiempo 4','2021-12-17','Que hacemos5?','2021-12-17',2),
+    (50,'Si el 1','2021-12-17','Que hacemos4?','2021-12-19',3),
+    (51,'Si el 3','2021-12-10','Que hacemos4?','2021-12-18',3),
+    (52,'Si el 4','2021-12-03','Que hacemos5?','2021-12-17',3);
 
 INSERT INTO `thank`
     (`note_id`,`user_id`,`created_at`)
