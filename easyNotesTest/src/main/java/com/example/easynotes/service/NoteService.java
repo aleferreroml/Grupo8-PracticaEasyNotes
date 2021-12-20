@@ -166,6 +166,7 @@ public class NoteService implements INoteService {
         Note note = noteRepository.findById(noteId)
                 .orElseThrow(() -> new ResourceNotFoundException("Note", "id", noteId));
         List<HashMap<String, Object>> thanksNote = noteRepository.findCantThanksForNote(noteId);
+
         Long cantThanks = (Long) thanksNote.get(0).get("cant_thanks");
         NoteResponseWithTypeDTO noteWithType = modelMapper.map(note, NoteResponseWithTypeDTO.class);
         //noteWithType.setId();
