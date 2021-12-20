@@ -9,6 +9,7 @@ VALUES
     (6, 'user6','last6'),
     (7, 'user7','last7'),
     (8, 'user8','last8');
+    (9, 'user9','last9');
 
 
 INSERT INTO `note`
@@ -26,6 +27,12 @@ VALUES
     (50,'Si el 1','2021-12-17','Que hacemos4?','2021-12-19',3),
     (51,'Si el 3','2021-12-10','Que hacemos4?','2021-12-18',3),
     (52,'Si el 4','2021-12-03','Que hacemos5?','2021-12-17',3);
+    /*getCategory - Diario*/
+    (90,'Si el tiempo no se me pasa más cuando se corta la luz91','2021-12-19','Que hacemos1?','2021-12-20',9),
+    (91,'Si el tiempo no se me pasa más cuando se corta la luz92','2021-12-18','Que hacemos2?','2021-12-20',9),
+    (914,'Si el tiempo no se me pasa más cuando se corta la luz93','2021-12-17','Que hacemos3?','2021-12-20',9),
+    (901,'Si el tiempo no se me pasa más cuando se corta la luz91','2021-12-20','Que hacemos1?','2021-12-20',9),
+
 
 
 INSERT INTO `thank`

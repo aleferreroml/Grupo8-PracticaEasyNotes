@@ -1,7 +1,9 @@
 package com.example.easynotes.service;
 
+import com.example.easynotes.dto.CategoriaUsuario;
 import com.example.easynotes.dto.UserRequestDTO;
 import com.example.easynotes.dto.UserResponseDTO;
+import com.example.easynotes.dto.UserResponseWithCategoryDTO;
 import com.example.easynotes.exception.ResourceNotFoundException;
 import com.example.easynotes.model.Note;
 import com.example.easynotes.model.User;
@@ -19,6 +21,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
 import javax.swing.text.html.Option;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -26,7 +29,8 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class UserServiceTest {
@@ -171,6 +175,50 @@ class UserServiceTest {
                 ResourceNotFoundException.class,
                 () -> userService.getUserById(1L) );
     }
+
+
+    @Test
+    void getUserCategoryDiario() {
+        Note note1 = new Note();
+        Note note2 = new Note();
+        Note note3 = new Note();
+        User author = new User();
+        List<Note> notes = List.of(note1,note2,note3);
+
+        when(userRepository.findById(9L)).thenReturn(Optional.of(author));
+        when(userRepository.findUserByIdAndNotes(9L)).thenReturn(notes);
+
+        note1.setAuthor(author);
+        note1.setCreatedAt(LocalDate.now().minusDays(1));
+        note2.setAuthor(author);
+        note2.setCreatedAt(LocalDate.now().minusDays(2));
+        note3.setAuthor(author);
+        note3.setCreatedAt(LocalDate.now().minusDays(3));
+
+
+        UserResponseWithCategoryDTO currentUser = userService.getCategory(9L);
+        System.out.println(currentUser);
+        Assertions.assertAll(
+                () -> Assertions.assertEquals(CategoriaUsuario.PublicadorDiario,currentUser.getCategory())
+        );
+        verify(userRepository, atLeastOnce()).findById(anyLong());
+        verify(userRepository,atLeastOnce()).findUserByIdAndNotes(anyLong());
+
+    }
+    @Test
+    void getUserCategoryPublicador() {
+        when(userRepository.findById(0L)).thenReturn(Optional.of(new User()));
+        List<Note> notes = List.of(new Note());
+
+        UserResponseWithCategoryDTO currentUser = userService.getCategory(0L);
+        System.out.println(currentUser);
+        Assertions.assertAll(
+                () -> Assertions.assertEquals(CategoriaUsuario.Publicador,currentUser.getCategory())
+        );
+        //verify(noteRepository, atLeastOnce()).findById(anyLong());
+
+    }
+
 
 
 
